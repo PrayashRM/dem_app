@@ -68,7 +68,7 @@ Click **Authorize** and enter: `Bearer <your_token>`
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
+    allow_origins=settings.get_allowed_origins(),  # ← use the method
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
