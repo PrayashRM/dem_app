@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  api:
+    # In dev, reload on code changes
+    command: >
+      uvicorn app.main:app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+      --log-level debug
+    environment:
+      DEBUG: "True"
+    volumes:
+      # Mount source code for hot reload
+      - .:/app
+      - /app/__pycache__
+
+  db:
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    ports:
+      - "5050:80"
