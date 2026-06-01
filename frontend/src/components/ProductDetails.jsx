@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X, Package, DollarSign, Tag, Clock } from 'lucide-react';
-import { productApi } from '../api/productApi';
+import productApi from '../api/productApi';
 import { formatPrice } from '../utils/helpers';
 import MessageBox from './MessageBox';
 
@@ -12,12 +12,12 @@ const ProductDetails = ({ productId, onClose }) => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await productApi.getOne(productId);
-        if (response.success && response.data) {
-          setProduct(response.data);
+        const response = await productApi.getProductById(productId);
+        if (response.data.success && response.data.data) {
+          setProduct(response.data.data);
         }
       } catch (err) {
-        setError(err.message || 'Failed to load product details');
+        setError(err.response?.data?.message || 'Failed to load product details');
       } finally {
         setLoading(false);
       }

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { productApi } from '../api/productApi';
+import productApi from '../api/productApi';
 
 export const useProducts = (initialParams = {}) => {
   const [products, setProducts] = useState([]);
@@ -16,15 +16,15 @@ export const useProducts = (initialParams = {}) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await productApi.getAll(params);
-      if (response.success) {
-        setProducts(response.data || []);
-        if (response.pagination) {
-          setPagination(response.pagination);
+      const response = await productApi.getProducts(params);
+      if (response.data.success) {
+        setProducts(response.data.data || []);
+        if (response.data.pagination) {
+          setPagination(response.data.pagination);
         }
       }
     } catch (err) {
-      setError(err.message || 'Failed to fetch products');
+      setError(err.response?.data?.message || 'Failed to fetch products');
     } finally {
       setLoading(false);
     }

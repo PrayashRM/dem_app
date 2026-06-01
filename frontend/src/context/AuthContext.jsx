@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import { authApi } from '../api/authApi';
+import authApi from '../api/authApi';
 
 export const AuthContext = createContext();
 
@@ -12,13 +12,15 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem('access_token');
       if (token) {
         try {
-          const response = await authApi.me();
-          if (response.success && response.data) {
-            setUser(response.data);
+          const response = await authApi.getMe();
+          if (response.data.success && response.data.data) {
+            setUser(response.data.data);
+            localStorage.setItem('user', JSON.stringify(response.data.data));
           }
         } catch (error) {
           console.error("Auth init failed", error);
           localStorage.removeItem('access_token');
+          localStorage.removeItem('user');
         }
       }
       setLoading(false);
@@ -29,11 +31,13 @@ export const AuthProvider = ({ children }) => {
 
   const login = (token, userData) => {
     localStorage.setItem('access_token', token);
+    localStorage.setItem('user', JSON.stringify(userData));
     setUser(userData);
   };
 
   const logout = () => {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('user');
     setUser(null);
   };
 

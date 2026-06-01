@@ -1,22 +1,12 @@
-import api from './axios';
+import api from "./axios";
 
-export const productApi = {
-  getAll: (params) => {
-    return api.get('/api/v1/products', { params });
-  },
-  getOne: (id) => {
-    return api.get(`/api/v1/products/${id}`);
-  },
-  create: (data) => {
-    return api.post('/api/v1/products', data);
-  },
-  update: (id, data) => {
-    return api.put(`/api/v1/products/${id}`, data);
-  },
-  patch: (id, data) => {
-    return api.patch(`/api/v1/products/${id}`, data);
-  },
-  delete: (id) => {
-    return api.delete(`/api/v1/products/${id}`);
-  }
+const productApi = {
+  createProduct: (data) => api.post("/products", data),
+  getProducts: (params = {}) => api.get("/products", { params }),
+  getProductById: (id) => api.get(`/products/${id}`),
+  updateProduct: (id, data) => api.put(`/products/${id}`, data),
+  patchProduct: (id, data) => api.patch(`/products/${id}`, data),
+  deleteProduct: (id) => api.delete(`/products/${id}`),
 };
+
+export default productApi;

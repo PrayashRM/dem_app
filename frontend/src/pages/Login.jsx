@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { authApi } from '../api/authApi';
+import authApi from '../api/authApi';
 import { useAuth } from '../hooks/useAuth';
 import MessageBox from '../components/MessageBox';
 import { Box, Mail, Lock } from 'lucide-react';
@@ -25,20 +25,21 @@ const Login = () => {
 
     try {
       const response = await authApi.login(formData);
-      if (response.success && response.data) {
-        login(response.data.access_token, response.data.user);
+      if (response.data.success && response.data.data) {
+        const { access_token, user } = response.data.data;
+        login(access_token, user);
         
-        if (response.data.user.role === 'admin') {
+        if (user.role === 'admin') {
           navigate('/products');
         } else {
           navigate('/dashboard');
         }
       }
     } catch (err) {
-      if (err.error_code === 'VALIDATION_ERROR' && err.details) {
-        setError(err.details.map(d => d.message).join(' | '));
+      if (err.response?.status === 422 && err.response.data.details) {
+        setError(err.response.data.details.map(d => d.message).join(' | '));
       } else {
-        setError(err.message || 'Login failed. Please check your credentials.');
+        setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
       }
     } finally {
       setLoading(false);

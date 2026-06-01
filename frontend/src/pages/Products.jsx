@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useProducts } from '../hooks/useProducts';
-import { productApi } from '../api/productApi';
+import productApi from '../api/productApi';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import ProductForm from '../components/ProductForm';
@@ -68,22 +68,22 @@ const Products = () => {
 
   const handlePatchStock = async (id, patchData) => {
     try {
-      await productApi.patch(id, patchData);
-      showMessage('success', 'Stock updated successfully');
+      const response = await productApi.patchProduct(id, patchData);
+      showMessage('success', response.data.message || 'Stock updated successfully');
       fetchProducts(queryParams);
     } catch (err) {
-      showMessage('error', err.message || 'Failed to patch stock');
+      showMessage('error', err.response?.data?.message || 'Failed to patch stock');
     }
   };
 
   const handleFormSubmit = async (formData) => {
     try {
       if (editingProduct) {
-        await productApi.update(editingProduct.id, formData);
-        showMessage('success', 'Product updated successfully');
+        const response = await productApi.updateProduct(editingProduct.id, formData);
+        showMessage('success', response.data.message || 'Product updated successfully');
       } else {
-        await productApi.create(formData);
-        showMessage('success', 'Product created successfully');
+        const response = await productApi.createProduct(formData);
+        showMessage('success', response.data.message || 'Product created successfully');
       }
       setIsFormOpen(false);
       fetchProducts(queryParams); // Refresh the current page
@@ -95,11 +95,11 @@ const Products = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        await productApi.delete(id);
-        showMessage('success', 'Product deleted successfully');
+        const response = await productApi.deleteProduct(id);
+        showMessage('success', response.data.message || 'Product deleted successfully');
         fetchProducts(queryParams); // Refresh
       } catch (err) {
-        showMessage('error', err.message || 'Failed to delete product');
+        showMessage('error', err.response?.data?.message || 'Failed to delete product');
       }
     }
   };

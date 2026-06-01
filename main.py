@@ -1,4 +1,4 @@
-def main():
+us def main():
     print("Hello from basic-app!")
 
 

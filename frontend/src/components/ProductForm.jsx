@@ -43,10 +43,10 @@ const ProductForm = ({ product, onSubmit, onClose }) => {
       };
       await onSubmit(payload);
     } catch (err) {
-      if (err.error_code === 'VALIDATION_ERROR' && err.details) {
-        setError(err.details.map(d => d.message).join(' | '));
+      if (err.response?.status === 422 && err.response.data.details) {
+        setError(err.response.data.details.map(d => d.message).join(' | '));
       } else {
-        setError(err.message || 'An error occurred');
+        setError(err.response?.data?.message || 'An error occurred');
       }
     } finally {
       setLoading(false);

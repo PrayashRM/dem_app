@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { authApi } from '../api/authApi';
+import authApi from '../api/authApi';
 import MessageBox from '../components/MessageBox';
 import { Box, Mail, Lock, User } from 'lucide-react';
 import './Auth.css';
@@ -25,17 +25,17 @@ const Register = () => {
 
     try {
       const response = await authApi.register(formData);
-      if (response.success) {
-        setSuccess('Account created successfully. Redirecting to login...');
+      if (response.data.success) {
+        setSuccess(response.data.message || 'Account created successfully. Redirecting to login...');
         setTimeout(() => {
           navigate('/login');
         }, 2000);
       }
     } catch (err) {
-      if (err.error_code === 'VALIDATION_ERROR' && err.details) {
-        setError(err.details.map(d => d.message).join(' | '));
+      if (err.response?.status === 422 && err.response.data.details) {
+        setError(err.response.data.details.map(d => d.message).join(' | '));
       } else {
-        setError(err.message || 'Registration failed. Please try again.');
+        setError(err.response?.data?.message || 'Registration failed. Please try again.');
       }
     } finally {
       setLoading(false);
