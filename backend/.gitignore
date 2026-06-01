@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Environment — never commit real secrets
+.env
+!.env.example
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Alembic
+# Keep versions tracked, ignore nothing here
+
+# Logs
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker volumes (local data)
+postgres_data/
+pgadmin_data/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
