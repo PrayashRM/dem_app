@@ -1,0 +1,23 @@
+.message-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.message-box.success {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.message-box.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}

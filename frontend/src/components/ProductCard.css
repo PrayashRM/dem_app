@@ -1,0 +1,156 @@
+.product-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: var(--transition-normal);
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.product-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.product-category {
+  font-size: 0.75rem;
+  background: var(--bg-tertiary);
+  padding: 4px 8px;
+  border-radius: 12px;
+  color: var(--text-secondary);
+}
+
+.product-desc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.product-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+.product-stock {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.in-stock {
+  color: var(--success);
+}
+
+.out-of-stock {
+  color: var(--danger);
+}
+
+.product-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: var(--transition-fast);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn:hover {
+  background: var(--bg-tertiary);
+}
+
+.edit-btn:hover {
+  color: var(--accent-primary);
+}
+
+.delete-btn:hover {
+  color: var(--danger);
+}
+
+.product-actions-full {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.admin-actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-tertiary);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.patch-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.patch-btn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.patch-btn:hover:not(:disabled) {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.patch-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.crud-actions {
+  display: flex;
+  gap: 4px;
+}
